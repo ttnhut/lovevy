@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vy's Kitchen - Đặt đồ ăn cho người yêu ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header h1 {
+            color: #ff6b6b;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        
+        .love-message {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .menu-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .menu-item {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border-color: #ff6b6b;
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .menu-item h3 {
+            color: #333;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .menu-item p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .price {
+            color: #ff6b6b;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .order-btn {
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .order-btn:hover {
+            background: linear-gradient(45deg, #ff5252, #ff6b6b);
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            min-width: 250px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cart h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .cart-total {
+            border-top: 2px solid #ff6b6b;
+            padding-top: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .checkout-btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .checkout-btn:hover {
+            background: linear-gradient(45deg, #44a08d, #4ecdc4);
+            transform: scale(1.05);
+        }
+        
+        .heart-animation {
+            display: inline-block;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .special-note {
+            background: linear-gradient(45deg, #ffeaa7, #fab1a0);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .special-note h3 {
+            color: #d63031;
+            margin-bottom: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .cart {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 20px 0;
+                width: 100%;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .menu-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Vy's Kitchen <span class="heart-animation">💖</span></h1>
+            <p>Món ngon dành riêng cho Hồ Nguyễn Nhật Vy</p>
+            <div class="love-message">
+                Em là bánh kẹo ngọt ngào nhất của anh! <span class="heart-animation">❤️</span>
+            </div>
+        </div>
+        
+        <div class="special-note">
+            <h3>💌 Lời nhắn đặc biệt cho Vy</h3>
+            <p>Anh đã tạo riêng website này để đặt đồ ăn cho em yêu. Mỗi món ăn đều được chọn lọc với tình yêu dành cho em! Vy cứ chọn món gì thích nhé, anh sẽ đặt ngay cho em! 🥰</p>
+        </div>
+        
+        <div class="cart">
+            <h3>🛒 Giỏ hàng của Vy</h3>
+            <div id="cart-items">
+                <p style="text-align: center; color: #999;">Chưa có món nào</p>
+            </div>
+            <div class="cart-total">
+                <strong>Tổng cộng: <span id="total">0</span>đ</strong>
+                <button class="checkout-btn" onclick="checkout()">Đặt hàng cho Vy 💝</button>
+            </div>
+        </div>
+        
+        <div class="menu-section">
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=200&fit=crop" alt="Bánh mì">
+                <h3>🥖 Bánh mì đặc biệt</h3>
+                <p>Bánh mì thơm ngon với thịt nướng, chả cá, và rau thơm tươi. Món yêu thích của Vy!</p>
+                <div class="price">25,000đ</div>
+                <button class="order-btn" onclick="addToCart('Bánh mì đặc biệt', 25000)">Thêm vào giỏ 💕</button>
+            </div>
+            
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&h=200&fit=crop" alt="Phở">
+                <h3>🍜 Phở bò đặc biệt</h3>
+                <p>Phở bò nóng hổi với nước dùng đậm đà, thịt bò tươi ngon. Ấm lòng như tình yêu anh dành cho em!</p>
+                <div class="price">45,000đ</div>
+                <button class="order-btn" onclick="addToCart('Phở bò đặc biệt', 45000)">Thêm vào giỏ 💕</button>
+            </div>
+            
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop" alt="Pizza">
+                <h3>🍕 Pizza tình yêu</h3>
+                <p>Pizza phô mai thơm ngon với topping đa dạng. Được làm với tình yêu đặc biệt dành cho Vy!</p>
+                <div class="price">120,000đ</div>
+                <button class="order-btn" onclick="addToCart('Pizza tình yêu', 120000)">Thêm vào giỏ 💕</button>
+            </div>
+            
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&h=200&fit=crop" alt="Burger">
+                <h3>🍔 Burger đôi lứa</h3>
+                <p>Burger bò nướng thơm lừng với rau xanh tươi ngon. Ngon như tình yêu của anh và em!</p>
+                <div class="price">65,000đ</div>
+                <button class="order-btn" onclick="addToCart('Burger đôi lứa', 65000)">Thêm vào giỏ 💕</button>
+            </div>
+            
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1563379091339-03246963d1d4?w=400&h=200&fit=crop" alt="Trà sữa">
+                <h3>🧋 Trà sữa ngọt ngào</h3>
+                <p>Trà sữa đậm đà với topping trân châu. Ngọt như nụ cười của Vy mỗi ngày!</p>
+                <div class="price">30,000đ</div>
+                <button class="order-btn" onclick="addToCart('Trà sữa ngọt ngào', 30000)">Thêm vào giỏ 💕</button>
+            </div>
+            
+            <div class="menu-item">
+                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=200&fit=crop" alt="Kem">
+                <h3>🍦 Kem tình yêu</h3>
+                <p>Kem mát lạnh nhiều vị với topping đầy màu sắc. Mát lành như tình yêu trong trẻo!</p>
+                <div class="price">35,000đ</div>
+                <button class="order-btn" onclick="addToCart('Kem tình yêu', 35000)">Thêm vào giỏ 💕</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let total = 0;
+        
+        function addToCart(name, price) {
+            // Tạo hiệu ứng tim bay
+            createHeartEffect();
+            
+            const existingItem = cart.find(item => item.name === name);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({name, price, quantity: 1});
+            }
+            updateCart();
+            
+            // Thông báo thêm thành công
+            showNotification(`Đã thêm ${name} vào giỏ hàng! 💖`);
+        }
+        
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const totalElement = document.getElementById('total');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; color: #999;">Chưa có món nào</p>';
+                total = 0;
+            } else {
+                cartItems.innerHTML = '';
+                total = 0;
+                
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>${item.price.toLocaleString()}đ x ${item.quantity}</small>
+                        </div>
+                        <div>
+                            <button onclick="removeFromCart(${index})" style="background: #ff6b6b; color: white; border: none; border-radius: 50%; width: 25px; height: 25px; cursor: pointer;">×</button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            totalElement.textContent = total.toLocaleString();
+        }
+        
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCart();
+        }
+        
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Giỏ hàng trống! Hãy chọn món cho Vy nhé! 😊');
+                return;
+            }
+            
+            let orderSummary = 'Đơn hàng đặc biệt cho Hồ Nguyễn Nhật Vy:\\n\\n';
+            cart.forEach(item => {
+                orderSummary += `• ${item.name} - ${item.quantity} x ${item.price.toLocaleString()}đ\\n`;
+            });
+            orderSummary += `\\nTổng cộng: ${total.toLocaleString()}đ`;
+            orderSummary += '\\n\\n💖 Anh yêu em rất nhiều! Đồ ăn sẽ sớm đến với em!';
+            
+            alert(orderSummary);
+            
+            // Reset giỏ hàng
+            cart = [];
+            updateCart();
+            
+            showNotification('Đã đặt hàng thành công cho Vy! Anh sẽ đặt ngay! 🥰💕');
+        }
+        
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+                color: white;
+                padding: 15px 25px;
+                border-radius: 10px;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+                z-index: 1000;
+                animation: slideIn 0.5s ease;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+        
+        function createHeartEffect() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '💖';
+            heart.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                font-size: 30px;
+                pointer-events: none;
+                z-index: 1000;
+                animation: heartFly 2s ease-out forwards;
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes heartFly {
+                    0% {
+                        transform: translate(-50%, -50%) scale(0);
+                        opacity: 1;
+                    }
+                    50% {
+                        transform: translate(-50%, -80px) scale(1.5);
+                        opacity: 0.8;
+                    }
+                    100% {
+                        transform: translate(-50%, -150px) scale(0);
+                        opacity: 0;
+                    }
+                }
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            
+            document.head.appendChild(style);
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+                style.remove();
+            }, 2000);
+        }
+        
+        // Hiệu ứng tuyết rơi (hearts rơi)
+        function createFloatingHearts() {
+            const heart = document.createElement('div');
+            heart.innerHTML = Math.random() > 0.5 ? '💖' : '💕';
+            heart.style.cssText = `
+                position: fixed;
+                top: -20px;
+                left: ${Math.random() * 100}%;
+                font-size: ${Math.random() * 20 + 10}px;
+                pointer-events: none;
+                z-index: 1;
+                animation: fall ${Math.random() * 3 + 3}s linear forwards;
+            `;
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        // Tạo hiệu ứng hearts rơi mỗi 3 giây
+        setInterval(createFloatingHearts, 3000);
+        
+        // Thêm CSS cho hiệu ứng hearts rơi
+        const fallStyle = document.createElement('style');
+        fallStyle.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(100vh) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(fallStyle);
+    </script>
+</body>
+</html>
