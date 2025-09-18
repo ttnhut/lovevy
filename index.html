@@ -13,115 +13,391 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 20px;
+            animation: floatUp 15s infinite linear;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Login Screen */
+        .login-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.8s ease;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 107, 107, 0.1), transparent);
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .login-title {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e1e5f2;
+            border-radius: 15px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: #667eea;
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            margin-top: 10px;
+            font-size: 0.9em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .error-message.show {
+            opacity: 1;
+        }
+
+        /* Main App */
+        .app-container {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .app-container.show {
+            opacity: 1;
+            transform: translateY(0);
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+            z-index: 10;
         }
         
         .header {
             text-align: center;
             margin-bottom: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 8s linear infinite;
+            z-index: -1;
         }
         
         .header h1 {
-            color: #ff6b6b;
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            color: white;
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
         
         .header p {
-            color: #666;
-            font-size: 1.2em;
-            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
         }
         
         .love-message {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             color: white;
-            padding: 15px 30px;
+            padding: 20px 40px;
             border-radius: 50px;
             display: inline-block;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .love-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
         
         .menu-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
         }
         
         .menu-item {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            border-radius: 25px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: all 0.6s;
+        }
+
+        .menu-item:hover::before {
+            left: 100%;
         }
         
         .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            border-color: #ff6b6b;
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border-color: #667eea;
         }
         
         .menu-item img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover img {
+            transform: scale(1.05);
+            filter: brightness(1.1);
         }
         
         .menu-item h3 {
             color: #333;
-            font-size: 1.3em;
-            margin-bottom: 10px;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            font-weight: bold;
         }
         
         .menu-item p {
             color: #666;
-            margin-bottom: 15px;
-            line-height: 1.5;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 1em;
         }
         
         .price {
-            color: #ff6b6b;
-            font-size: 1.4em;
+            color: #667eea;
+            font-size: 1.6em;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(102, 126, 234, 0.2);
         }
         
         .order-btn {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 15px 30px;
             border-radius: 25px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 1.1em;
             font-weight: bold;
             transition: all 0.3s ease;
             width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .order-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s;
+        }
+
+        .order-btn:hover::before {
+            left: 100%;
         }
         
         .order-btn:hover {
-            background: linear-gradient(45deg, #ff5252, #ff6b6b);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
         
         .cart {
@@ -129,77 +405,156 @@
             top: 20px;
             right: 20px;
             background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            min-width: 250px;
-            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            min-width: 280px;
+            max-width: 350px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            z-index: 100;
         }
         
         .cart h3 {
-            color: #ff6b6b;
-            margin-bottom: 15px;
+            color: #667eea;
+            margin-bottom: 20px;
             text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
         }
         
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding: 8px;
-            background: #f9f9f9;
-            border-radius: 8px;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            background: rgba(102, 126, 234, 0.15);
+            transform: translateX(5px);
         }
         
         .cart-total {
-            border-top: 2px solid #ff6b6b;
-            padding-top: 15px;
-            margin-top: 15px;
+            border-top: 2px solid #667eea;
+            padding-top: 20px;
+            margin-top: 20px;
             text-align: center;
         }
         
         .checkout-btn {
-            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 15px 25px;
             border-radius: 25px;
             cursor: pointer;
             font-weight: bold;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 15px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s;
+        }
+
+        .checkout-btn:hover::before {
+            left: 100%;
         }
         
         .checkout-btn:hover {
-            background: linear-gradient(45deg, #44a08d, #4ecdc4);
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.4);
         }
         
         .heart-animation {
             display: inline-block;
-            animation: heartbeat 1.5s ease-in-out infinite;
+            animation: heartbeat 2s ease-in-out infinite;
         }
         
         @keyframes heartbeat {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.2); }
             100% { transform: scale(1); }
         }
         
         .special-note {
-            background: linear-gradient(45deg, #ffeaa7, #fab1a0);
-            padding: 20px;
-            border-radius: 15px;
-            margin: 30px 0;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+            padding: 30px;
+            border-radius: 25px;
+            margin: 40px 0;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .special-note::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 10s linear infinite;
+            z-index: -1;
         }
         
         .special-note h3 {
             color: #d63031;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .special-note p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: slideIn 0.5s ease, pulse 2s ease;
+            max-width: 350px;
+            backdrop-filter: blur(20px);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
         
         @media (max-width: 768px) {
@@ -212,88 +567,158 @@
             }
             
             .header h1 {
-                font-size: 2em;
+                font-size: 2.2em;
             }
             
             .menu-section {
                 grid-template-columns: 1fr;
             }
+
+            .login-card {
+                margin: 20px;
+                padding: 30px 25px;
+            }
+
+            .login-title {
+                font-size: 2em;
+            }
+        }
+
+        /* Loading animation */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: all 0.5s ease;
+        }
+
+        .loading-heart {
+            font-size: 60px;
+            animation: heartbeat 1s ease-in-out infinite;
+            color: white;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+        }
+
+        .fade-out {
+            opacity: 0;
+            visibility: hidden;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Vy's Kitchen <span class="heart-animation">💖</span></h1>
-            <p>Món ngon dành riêng cho Hồ Nguyễn Nhật Vy</p>
-            <div class="love-message">
-                Em là bánh kẹo ngọt ngào nhất của anh! <span class="heart-animation">❤️</span>
-            </div>
+    <div class="background-animation" id="bgAnimation"></div>
+    
+    <!-- Loading Screen -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-heart">💖</div>
+    </div>
+
+    <!-- Login Screen -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-card">
+            <h2 class="login-title">💖 Vy's Kitchen</h2>
+            <p class="login-subtitle">Đăng nhập để đặt đồ ăn cho người yêu</p>
+            <form id="loginForm">
+                <div class="input-group">
+                    <input type="text" class="input-field" id="username" placeholder="Tên đăng nhập" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" class="input-field" id="password" placeholder="Mật khẩu" required>
+                </div>
+                <button type="submit" class="login-btn">
+                    Đăng nhập 💕
+                </button>
+                <div class="error-message" id="errorMessage">
+                    Sai tên đăng nhập hoặc mật khẩu! 😢
+                </div>
+            </form>
         </div>
-        
-        <div class="special-note">
-            <h3>💌 Lời nhắn đặc biệt cho Vy</h3>
-            <p>Anh đã tạo riêng website này để đặt đồ ăn cho em yêu. Mỗi món ăn đều được chọn lọc với tình yêu dành cho em! Vy cứ chọn món gì thích nhé, anh sẽ đặt ngay cho em! 🥰</p>
-        </div>
-        
-        <div class="cart">
-            <h3>🛒 Giỏ hàng của Vy</h3>
-            <div id="cart-items">
-                <p style="text-align: center; color: #999;">Chưa có món nào</p>
-            </div>
-            <div class="cart-total">
-                <strong>Tổng cộng: <span id="total">0</span>đ</strong>
-                <button class="checkout-btn" onclick="checkout()">Đặt hàng cho Vy 💝</button>
-            </div>
-        </div>
-        
-        <div class="menu-section">
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=200&fit=crop" alt="Bánh mì">
-                <h3>🥖 Bánh mì đặc biệt</h3>
-                <p>Bánh mì thơm ngon với thịt nướng, chả cá, và rau thơm tươi. Món yêu thích của Vy!</p>
-                <div class="price">25,000đ</div>
-                <button class="order-btn" onclick="addToCart('Bánh mì đặc biệt', 25000)">Thêm vào giỏ 💕</button>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-container" id="appContainer">
+        <div class="container">
+            <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+            
+            <div class="header">
+                <h1>Vy's Kitchen <span class="heart-animation">💖</span></h1>
+                <p>Món ngon dành riêng cho Hồ Nguyễn Nhật Vy</p>
+                <div class="love-message">
+                    Em là bánh kẹo ngọt ngào nhất của anh! <span class="heart-animation">❤️</span>
+                </div>
             </div>
             
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&h=200&fit=crop" alt="Phở">
-                <h3>🍜 Phở bò đặc biệt</h3>
-                <p>Phở bò nóng hổi với nước dùng đậm đà, thịt bò tươi ngon. Ấm lòng như tình yêu anh dành cho em!</p>
-                <div class="price">45,000đ</div>
-                <button class="order-btn" onclick="addToCart('Phở bò đặc biệt', 45000)">Thêm vào giỏ 💕</button>
+            <div class="special-note">
+                <h3>💌 Lời nhắn đặc biệt cho Vy</h3>
+                <p>Anh đã tạo riêng website này để đặt đồ ăn cho em yêu. Mỗi món ăn đều được chọn lọc với tình yêu dành cho em! Vy cứ chọn món gì thích nhé, anh sẽ đặt ngay cho em! 🥰</p>
             </div>
             
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop" alt="Pizza">
-                <h3>🍕 Pizza tình yêu</h3>
-                <p>Pizza phô mai thơm ngon với topping đa dạng. Được làm với tình yêu đặc biệt dành cho Vy!</p>
-                <div class="price">120,000đ</div>
-                <button class="order-btn" onclick="addToCart('Pizza tình yêu', 120000)">Thêm vào giỏ 💕</button>
+            <div class="cart">
+                <h3>🛒 Giỏ hàng của Vy</h3>
+                <div id="cart-items">
+                    <p style="text-align: center; color: #999;">Chưa có món nào</p>
+                </div>
+                <div class="cart-total">
+                    <strong>Tổng cộng: <span id="total">0</span>đ</strong>
+                    <button class="checkout-btn" onclick="checkout()">Đặt hàng cho Vy 💝</button>
+                </div>
             </div>
             
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&h=200&fit=crop" alt="Burger">
-                <h3>🍔 Burger đôi lứa</h3>
-                <p>Burger bò nướng thơm lừng với rau xanh tươi ngon. Ngon như tình yêu của anh và em!</p>
-                <div class="price">65,000đ</div>
-                <button class="order-btn" onclick="addToCart('Burger đôi lứa', 65000)">Thêm vào giỏ 💕</button>
-            </div>
-            
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1563379091339-03246963d1d4?w=400&h=200&fit=crop" alt="Trà sữa">
-                <h3>🧋 Trà sữa ngọt ngào</h3>
-                <p>Trà sữa đậm đà với topping trân châu. Ngọt như nụ cười của Vy mỗi ngày!</p>
-                <div class="price">30,000đ</div>
-                <button class="order-btn" onclick="addToCart('Trà sữa ngọt ngào', 30000)">Thêm vào giỏ 💕</button>
-            </div>
-            
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=200&fit=crop" alt="Kem">
-                <h3>🍦 Kem tình yêu</h3>
-                <p>Kem mát lạnh nhiều vị với topping đầy màu sắc. Mát lành như tình yêu trong trẻo!</p>
-                <div class="price">35,000đ</div>
-                <button class="order-btn" onclick="addToCart('Kem tình yêu', 35000)">Thêm vào giỏ 💕</button>
+            <div class="menu-section">
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=400&h=200&fit=crop" alt="Bánh mì">
+                    <h3>🥖 Bánh mì đặc biệt</h3>
+                    <p>Bánh mì thơm ngon với thịt nướng, chả cá, và rau thơm tươi. Món yêu thích của Vy!</p>
+                    <div class="price">25,000đ</div>
+                    <button class="order-btn" onclick="addToCart('Bánh mì đặc biệt', 25000)">Thêm vào giỏ 💕</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?w=400&h=200&fit=crop" alt="Phở">
+                    <h3>🍜 Phở bò đặc biệt</h3>
+                    <p>Phở bò nóng hổi với nước dùng đậm đà, thịt bò tươi ngon. Ấm lòng như tình yêu anh dành cho em!</p>
+                    <div class="price">45,000đ</div>
+                    <button class="order-btn" onclick="addToCart('Phở bò đặc biệt', 45000)">Thêm vào giỏ 💕</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400&h=200&fit=crop" alt="Pizza">
+                    <h3>🍕 Pizza tình yêu</h3>
+                    <p>Pizza phô mai thơm ngon với topping đa dạng. Được làm với tình yêu đặc biệt dành cho Vy!</p>
+                    <div class="price">120,000đ</div>
+                    <button class="order-btn" onclick="addToCart('Pizza tình yêu', 120000)">Thêm vào giỏ 💕</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1551782450-a2132b4ba21d?w=400&h=200&fit=crop" alt="Burger">
+                    <h3>🍔 Burger đôi lứa</h3>
+                    <p>Burger bò nướng thơm lừng với rau xanh tươi ngon. Ngon như tình yêu của anh và em!</p>
+                    <div class="price">65,000đ</div>
+                    <button class="order-btn" onclick="addToCart('Burger đôi lứa', 65000)">Thêm vào giỏ 💕</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1563379091339-03246963d1d4?w=400&h=200&fit=crop" alt="Trà sữa">
+                    <h3>🧋 Trà sữa ngọt ngào</h3>
+                    <p>Trà sữa đậm đà với topping trân châu. Ngọt như nụ cười của Vy mỗi ngày!</p>
+                    <div class="price">30,000đ</div>
+                    <button class="order-btn" onclick="addToCart('Trà sữa ngọt ngào', 30000)">Thêm vào giỏ 💕</button>
+                </div>
+                
+                <div class="menu-item">
+                    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=400&h=200&fit=crop" alt="Kem">
+                    <h3>🍦 Kem tình yêu</h3>
+                    <p>Kem mát lạnh nhiều vị với topping đầy màu sắc. Mát lành như tình yêu trong trẻo!</p>
+                    <div class="price">35,000đ</div>
+                    <button class="order-btn" onclick="addToCart('Kem tình yêu', 35000)">Thêm vào giỏ 💕</button>
+                </div>
             </div>
         </div>
     </div>
@@ -301,9 +726,101 @@
     <script>
         let cart = [];
         let total = 0;
-        
+        let isLoggedIn = false;
+
+        // Initialize app
+        window.addEventListener('load', () => {
+            createBackgroundAnimation();
+            setTimeout(() => {
+                document.getElementById('loadingOverlay').classList.add('fade-out');
+            }, 1500);
+        });
+
+        // Background animation
+        function createBackgroundAnimation() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const hearts = ['💖', '💕', '💗', '💝', '💘'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                
+                bgAnimation.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 20000);
+            }, 3000);
+        }
+
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'vy' && password === 'yeunhuttran') {
+                login();
+            } else {
+                showError();
+            }
+        });
+
+        function login() {
+            isLoggedIn = true;
+            const loginContainer = document.getElementById('loginContainer');
+            const appContainer = document.getElementById('appContainer');
+            
+            loginContainer.style.opacity = '0';
+            loginContainer.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                loginContainer.style.display = 'none';
+                appContainer.classList.add('show');
+                showNotification('Chào mừng Vy về nhà! 💖');
+            }, 500);
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            const loginContainer = document.getElementById('loginContainer');
+            const appContainer = document.getElementById('appContainer');
+            
+            appContainer.classList.remove('show');
+            
+            setTimeout(() => {
+                loginContainer.style.display = 'flex';
+                loginContainer.style.opacity = '1';
+                loginContainer.style.transform = 'scale(1)';
+                
+                // Reset form
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                document.getElementById('errorMessage').classList.remove('show');
+            }, 500);
+        }
+
+        function showError() {
+            const errorMessage = document.getElementById('errorMessage');
+            const loginCard = document.querySelector('.login-card');
+            
+            errorMessage.classList.add('show');
+            loginCard.style.animation = 'shake 0.5s ease-in-out';
+            
+            setTimeout(() => {
+                loginCard.style.animation = '';
+                errorMessage.classList.remove('show');
+            }, 3000);
+        }
+
+        // Cart functionality
         function addToCart(name, price) {
-            // Tạo hiệu ứng tim bay
+            if (!isLoggedIn) return;
+            
             createHeartEffect();
             
             const existingItem = cart.find(item => item.name === name);
@@ -314,7 +831,6 @@
             }
             updateCart();
             
-            // Thông báo thêm thành công
             showNotification(`Đã thêm ${name} vào giỏ hàng! 💖`);
         }
         
@@ -341,7 +857,7 @@
                             <small>${item.price.toLocaleString()}đ x ${item.quantity}</small>
                         </div>
                         <div>
-                            <button onclick="removeFromCart(${index})" style="background: #ff6b6b; color: white; border: none; border-radius: 50%; width: 25px; height: 25px; cursor: pointer;">×</button>
+                            <button onclick="removeFromCart(${index})" style="background: #ff6b6b; color: white; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; transition: all 0.3s ease;">×</button>
                         </div>
                     `;
                     cartItems.appendChild(cartItem);
@@ -354,139 +870,232 @@
         function removeFromCart(index) {
             cart.splice(index, 1);
             updateCart();
+            showNotification('Đã xóa món khỏi giỏ hàng! 🗑️');
         }
         
         function checkout() {
+            if (!isLoggedIn) return;
+            
             if (cart.length === 0) {
                 showNotification('Giỏ hàng trống! Hãy chọn món cho Vy nhé! 😊');
                 return;
             }
             
-            let orderSummary = 'Đơn hàng đặc biệt cho Hồ Nguyễn Nhật Vy:\\n\\n';
+            let orderSummary = 'Đơn hàng đặc biệt cho Hồ Nguyễn Nhật Vy:\n\n';
             cart.forEach(item => {
-                orderSummary += `• ${item.name} - ${item.quantity} x ${item.price.toLocaleString()}đ\\n`;
+                orderSummary += `• ${item.name} - ${item.quantity} x ${item.price.toLocaleString()}đ\n`;
             });
-            orderSummary += `\\nTổng cộng: ${total.toLocaleString()}đ`;
-            orderSummary += '\\n\\n💖 Anh yêu em rất nhiều! Đồ ăn sẽ sớm đến với em!';
+            orderSummary += `\nTổng cộng: ${total.toLocaleString()}đ`;
+            orderSummary += '\n\n💖 Anh yêu em rất nhiều! Đồ ăn sẽ sớm đến với em!';
             
-            alert(orderSummary);
-            
-            // Reset giỏ hàng
-            cart = [];
-            updateCart();
-            
-            showNotification('Đã đặt hàng thành công cho Vy! Anh sẽ đặt ngay! 🥰💕');
+            // Create custom modal instead of alert
+            showOrderModal(orderSummary);
+        }
+
+        function showOrderModal(orderSummary) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2000;
+                backdrop-filter: blur(10px);
+            `;
+
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                padding: 40px;
+                border-radius: 25px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                position: relative;
+                animation: modalIn 0.5s ease;
+            `;
+
+            modalContent.innerHTML = `
+                <h2 style="color: #667eea; margin-bottom: 20px;">🎉 Đặt hàng thành công!</h2>
+                <div style="text-align: left; background: #f8f9ff; padding: 20px; border-radius: 15px; margin: 20px 0; white-space: pre-line; font-family: monospace;">${orderSummary}</div>
+                <button onclick="this.closest('.modal').remove(); cart = []; updateCart(); showNotification('Cảm ơn Vy! Anh sẽ đặt món ngay! 🥰💕');" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 15px 30px; border-radius: 15px; cursor: pointer; font-size: 1.1em; font-weight: bold;">
+                    Xác nhận 💖
+                </button>
+            `;
+
+            modal.className = 'modal';
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+
+            // Add CSS for modal animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes modalIn {
+                    from {
+                        transform: scale(0.7);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-10px); }
+                    75% { transform: translateX(10px); }
+                }
+            `;
+            document.head.appendChild(style);
         }
         
         function showNotification(message) {
             const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
-                color: white;
-                padding: 15px 25px;
-                border-radius: 10px;
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-                z-index: 1000;
-                animation: slideIn 0.5s ease;
-                max-width: 300px;
-            `;
+            notification.className = 'notification';
             notification.textContent = message;
             
             document.body.appendChild(notification);
             
             setTimeout(() => {
-                notification.remove();
+                notification.style.animation = 'slideIn 0.5s ease reverse';
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
             }, 3000);
         }
         
         function createHeartEffect() {
+            const hearts = ['💖', '💕', '💗', '💝', '💘'];
             const heart = document.createElement('div');
-            heart.innerHTML = '💖';
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
             heart.style.cssText = `
                 position: fixed;
                 top: 50%;
                 left: 50%;
-                font-size: 30px;
+                font-size: 40px;
                 pointer-events: none;
                 z-index: 1000;
                 animation: heartFly 2s ease-out forwards;
             `;
             
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes heartFly {
-                    0% {
-                        transform: translate(-50%, -50%) scale(0);
-                        opacity: 1;
-                    }
-                    50% {
-                        transform: translate(-50%, -80px) scale(1.5);
-                        opacity: 0.8;
-                    }
-                    100% {
-                        transform: translate(-50%, -150px) scale(0);
-                        opacity: 0;
-                    }
-                }
-                @keyframes slideIn {
-                    from {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                }
-            `;
-            
-            document.head.appendChild(style);
             document.body.appendChild(heart);
             
             setTimeout(() => {
                 heart.remove();
-                style.remove();
             }, 2000);
         }
-        
-        // Hiệu ứng tuyết rơi (hearts rơi)
-        function createFloatingHearts() {
-            const heart = document.createElement('div');
-            heart.innerHTML = Math.random() > 0.5 ? '💖' : '💕';
-            heart.style.cssText = `
-                position: fixed;
-                top: -20px;
-                left: ${Math.random() * 100}%;
-                font-size: ${Math.random() * 20 + 10}px;
-                pointer-events: none;
-                z-index: 1;
-                animation: fall ${Math.random() * 3 + 3}s linear forwards;
-            `;
-            
-            document.body.appendChild(heart);
-            
-            setTimeout(() => {
-                heart.remove();
-            }, 6000);
-        }
-        
-        // Tạo hiệu ứng hearts rơi mỗi 3 giây
-        setInterval(createFloatingHearts, 3000);
-        
-        // Thêm CSS cho hiệu ứng hearts rơi
-        const fallStyle = document.createElement('style');
-        fallStyle.textContent = `
-            @keyframes fall {
-                to {
-                    transform: translateY(100vh) rotate(360deg);
+
+        // Add heart fly animation
+        const heartFlyStyle = document.createElement('style');
+        heartFlyStyle.textContent = `
+            @keyframes heartFly {
+                0% {
+                    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+                    opacity: 1;
+                }
+                50% {
+                    transform: translate(-50%, -100px) scale(1.5) rotate(180deg);
+                    opacity: 0.8;
+                }
+                100% {
+                    transform: translate(-50%, -200px) scale(0) rotate(360deg);
                     opacity: 0;
                 }
             }
         `;
-        document.head.appendChild(fallStyle);
+        document.head.appendChild(heartFlyStyle);
+
+        // Add smooth scrolling and other enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling
+            document.documentElement.style.scrollBehavior = 'smooth';
+            
+            // Add entrance animations for menu items
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe menu items
+            setTimeout(() => {
+                document.querySelectorAll('.menu-item').forEach((item, index) => {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(30px)';
+                    item.style.animationDelay = `${index * 0.1}s`;
+                    observer.observe(item);
+                });
+            }, 1000);
+
+            // Add fadeInUp animation
+            const fadeInUpStyle = document.createElement('style');
+            fadeInUpStyle.textContent = `
+                @keyframes fadeInUp {
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(fadeInUpStyle);
+        });
+
+        // Add particle effects on hover
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.98) {
+                createMouseParticle(e.clientX, e.clientY);
+            }
+        });
+
+        function createMouseParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.textContent = '✨';
+            particle.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: 12px;
+                pointer-events: none;
+                z-index: 1000;
+                animation: particleFade 2s ease-out forwards;
+            `;
+
+            document.body.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 2000);
+        }
+
+        // Add particle fade animation
+        const particleFadeStyle = document.createElement('style');
+        particleFadeStyle.textContent = `
+            @keyframes particleFade {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-50px) scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(particleFadeStyle);
     </script>
 </body>
 </html>
