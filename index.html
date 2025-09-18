@@ -320,6 +320,80 @@
             box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
         }
 
+        /* Love Counter Styles */
+        .love-counter {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 25px;
+            border-radius: 25px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .love-counter::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: rotate 6s linear infinite;
+            z-index: -1;
+        }
+
+        .love-counter h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .counter-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 10px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .counter-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+            animation: countPulse 2s infinite;
+        }
+
+        .counter-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        @keyframes countPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .love-milestone {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 0.95em;
+        }
+
         /* Main App */
         .app-container {
             opacity: 0;
@@ -724,6 +798,14 @@
                 width: 120px;
                 height: 120px;
             }
+
+            .counter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .counter-number {
+                font-size: 1.5em;
+            }
         }
 
         /* Loading animation */
@@ -768,6 +850,18 @@
             <h2 class="login-title">💖 Vy's Kitchen</h2>
             <p class="login-subtitle">Đăng nhập bằng Face ID</p>
             
+            <!-- Love Counter on Login Screen -->
+            <div class="love-counter">
+                <h3>💕 Đếm ngày yêu nhau 💕</h3>
+                <div id="loginLoveCounter">
+                    <div class="counter-number" id="loginDaysCount">0</div>
+                    <div class="counter-label">ngày bên nhau</div>
+                </div>
+                <div class="love-milestone" id="loginMilestone">
+                    Kể từ 09/06/2025 - Ngày đầu tiên anh yêu em
+                </div>
+            </div>
+            
             <div class="face-id-container">
                 <div class="face-preview" id="facePreview">
                     📸
@@ -811,6 +905,32 @@
                 <p>Món ngon dành riêng cho Hồ Nguyễn Nhật Vy</p>
                 <div class="love-message">
                     Em là bánh kẹo ngọt ngào nhất của anh! <span class="heart-animation">❤️</span>
+                </div>
+                
+                <!-- Main Love Counter -->
+                <div class="love-counter" style="margin-top: 30px;">
+                    <h3>💕 Chúng ta đã yêu nhau được 💕</h3>
+                    <div class="counter-grid">
+                        <div class="counter-item">
+                            <span class="counter-number" id="daysCount">0</span>
+                            <div class="counter-label">ngày</div>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" id="hoursCount">0</span>
+                            <div class="counter-label">giờ</div>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" id="minutesCount">0</span>
+                            <div class="counter-label">phút</div>
+                        </div>
+                        <div class="counter-item">
+                            <span class="counter-number" id="secondsCount">0</span>
+                            <div class="counter-label">giây</div>
+                        </div>
+                    </div>
+                    <div class="love-milestone" id="milestone">
+                        Kể từ 09/06/2025 - Ngày đầu tiên anh yêu em
+                    </div>
                 </div>
             </div>
             
@@ -888,6 +1008,10 @@
         let isLoggedIn = false;
         let stream = null;
         let capturedImageUrl = null;
+        let loveCounterInterval = null;
+
+        // Love date - June 9, 2025
+        const LOVE_START_DATE = new Date('2025-06-09T00:00:00');
 
         // Predefined GitHub avatar URL for Vy (replace with actual URL)
         const VY_GITHUB_AVATAR = "https://raw.githubusercontent.com/ttnhut/lovevy/refs/heads/main/474620148_1260802225221376_8410814252893543579_n.jpg";
@@ -895,10 +1019,80 @@
         // Initialize app
         window.addEventListener('load', () => {
             createBackgroundAnimation();
+            updateLoveCounter();
+            startLoveCounterTimer();
             setTimeout(() => {
                 document.getElementById('loadingOverlay').classList.add('fade-out');
             }, 1500);
         });
+
+        // Love Counter Functions
+        function updateLoveCounter() {
+            const now = new Date();
+            const timeDiff = now - LOVE_START_DATE;
+            
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+            // Update main counter
+            const daysElement = document.getElementById('daysCount');
+            const hoursElement = document.getElementById('hoursCount');
+            const minutesElement = document.getElementById('minutesCount');
+            const secondsElement = document.getElementById('secondsCount');
+            
+            if (daysElement) daysElement.textContent = days;
+            if (hoursElement) hoursElement.textContent = hours;
+            if (minutesElement) minutesElement.textContent = minutes;
+            if (secondsElement) secondsElement.textContent = seconds;
+
+            // Update login counter
+            const loginDaysElement = document.getElementById('loginDaysCount');
+            if (loginDaysElement) loginDaysElement.textContent = days;
+
+            // Update milestone messages
+            updateMilestone(days);
+        }
+
+        function updateMilestone(days) {
+            let milestoneText = "Kể từ 09/06/2025 - Ngày đầu tiên anh yêu em";
+            
+            if (days >= 365) {
+                const years = Math.floor(days / 365);
+                milestoneText += ` 🎉 Đã ${years} năm bên nhau!`;
+            } else if (days >= 300) {
+                milestoneText += " 🌟 Sắp tròn 1 năm rồi!";
+            } else if (days >= 200) {
+                milestoneText += " 💝 Hơn 200 ngày hạnh phúc!";
+            } else if (days >= 100) {
+                milestoneText += " 🎊 Đã hơn 100 ngày yêu nhau!";
+            } else if (days >= 50) {
+                milestoneText += " 💕 Tình yêu ngày càng lớn!";
+            } else if (days >= 30) {
+                milestoneText += " 🥰 1 tháng tuyệt vời!";
+            } else if (days >= 7) {
+                milestoneText += " 💖 Mỗi ngày đều đặc biệt!";
+            }
+
+            const milestoneElement = document.getElementById('milestone');
+            const loginMilestoneElement = document.getElementById('loginMilestone');
+            
+            if (milestoneElement) milestoneElement.textContent = milestoneText;
+            if (loginMilestoneElement) loginMilestoneElement.textContent = milestoneText;
+        }
+
+        function startLoveCounterTimer() {
+            // Update every second
+            loveCounterInterval = setInterval(updateLoveCounter, 1000);
+        }
+
+        function stopLoveCounterTimer() {
+            if (loveCounterInterval) {
+                clearInterval(loveCounterInterval);
+                loveCounterInterval = null;
+            }
+        }
 
         // Background animation
         function createBackgroundAnimation() {
@@ -1423,6 +1617,7 @@
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
             }
+            stopLoveCounterTimer();
         });
     </script>
 </body>
